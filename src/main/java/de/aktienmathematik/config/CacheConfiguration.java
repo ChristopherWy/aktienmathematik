@@ -42,6 +42,7 @@ public class CacheConfiguration {
             createCache(cm, de.aktienmathematik.domain.User.class.getName());
             createCache(cm, de.aktienmathematik.domain.Authority.class.getName());
             createCache(cm, de.aktienmathematik.domain.User.class.getName() + ".authorities");
+            createCache(cm, de.aktienmathematik.domain.Aktien.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

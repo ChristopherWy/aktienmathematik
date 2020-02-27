@@ -1,0 +1,12 @@
+entity Aktien {
+	symbol String,
+    date Instant,
+    open Double,
+    close Double,
+    high Double,
+    low Double,
+    volume Integer
+}
+
+paginate Aktien with pagination
+service all with serviceImpl except Aktien

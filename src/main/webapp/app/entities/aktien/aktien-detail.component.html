@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="aktien">
+            <h2><span>Aktien</span> {{ aktien.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Symbol</span></dt>
+                <dd>
+                    <span>{{ aktien.symbol }}</span>
+                </dd>
+                <dt><span>Date</span></dt>
+                <dd>
+                    <span>{{ aktien.date }}</span>
+                </dd>
+                <dt><span>Open</span></dt>
+                <dd>
+                    <span>{{ aktien.open }}</span>
+                </dd>
+                <dt><span>Close</span></dt>
+                <dd>
+                    <span>{{ aktien.close }}</span>
+                </dd>
+                <dt><span>High</span></dt>
+                <dd>
+                    <span>{{ aktien.high }}</span>
+                </dd>
+                <dt><span>Low</span></dt>
+                <dd>
+                    <span>{{ aktien.low }}</span>
+                </dd>
+                <dt><span>Volume</span></dt>
+                <dd>
+                    <span>{{ aktien.volume }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/aktien', aktien.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

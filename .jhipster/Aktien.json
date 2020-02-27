@@ -1,0 +1,44 @@
+{
+    "name": "Aktien",
+    "fields": [
+        {
+            "fieldName": "symbol",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "open",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "close",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "high",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "low",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "volume",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20200227130700",
+    "entityTableName": "aktien",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}
