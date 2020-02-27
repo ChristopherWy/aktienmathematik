@@ -1,0 +1,83 @@
+<div>
+    <h2 id="page-heading">
+        <span>Aktiens</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-aktien" [routerLink]="['/aktien/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span>
+            Create a new Aktien
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="aktiens?.length === 0">
+        <span>No aktiens found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="aktiens?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="symbol"><span>Symbol</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="date"><span>Date</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="open"><span>Open</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="close"><span>Close</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="high"><span>High</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="low"><span>Low</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="volume"><span>Volume</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let aktien of aktiens ;trackBy: trackId">
+                    <td><a [routerLink]="['/aktien', aktien.id, 'view']">{{ aktien.id }}</a></td>
+                    <td>{{ aktien.symbol }}</td>
+                    <td>{{ aktien.date | date:'medium' }}</td>
+                    <td>{{ aktien.open }}</td>
+                    <td>{{ aktien.close }}</td>
+                    <td>{{ aktien.high }}</td>
+                    <td>{{ aktien.low }}</td>
+                    <td>{{ aktien.volume }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/aktien', aktien.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/aktien', aktien.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(aktien)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="aktiens?.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>
