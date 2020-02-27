@@ -1,0 +1,11 @@
+version: '2'
+services:
+  aktienmathematik-postgresql:
+    image: postgres:12.1
+    # volumes:
+    #     - ~/volumes/jhipster/aktienmathematik/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=aktienmathematik
+      - POSTGRES_PASSWORD=
+    ports:
+      - 5432:5432
