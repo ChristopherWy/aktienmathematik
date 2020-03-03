@@ -1,28 +1,46 @@
 <div>
     <h2 id="page-heading">
-        <span>Aktiens</span>
-
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-aktien" [routerLink]="['/aktien/new']">
+        <span>Aktien</span>
+        <!--<button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-aktien" [routerLink]="['/aktien/new']">
             <fa-icon icon="plus"></fa-icon>
             <span>
             Create a new Aktien
             </span>
-        </button>
+        </button>-->
     </h2>
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <form name="editForm" role="form" novalidate (ngSubmit)="update.save()" [formGroup]="update.editForm">
+                <div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_symbol">Name oder Symbol der Gesuchten Aktie auswählen</label>
+                        <input type="text" class="form-control" name="symbol" id="field_symbol"
+                               formControlName="symbol"/>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" id="save-entity" [disabled]="update.editForm.invalid || update.isSaving" class="btn btn-primary">
+                        <fa-icon icon="save"></fa-icon>&nbsp;<span>Suche</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <jhi-alert-error></jhi-alert-error>
 
     <jhi-alert></jhi-alert>
 
     <div class="alert alert-warning" id="no-result" *ngIf="aktiens?.length === 0">
-        <span>No aktiens found</span>
+        <span>Keine Daten zur gesuchten Aktie gefunden</span>
     </div>
 
     <div class="table-responsive" id="entities" *ngIf="aktiens?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
-                    <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <!--<th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>-->
                     <th scope="col"  jhiSortBy="symbol"><span>Symbol</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="date"><span>Date</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="open"><span>Open</span> <fa-icon icon="sort"></fa-icon></th>
@@ -30,20 +48,20 @@
                     <th scope="col"  jhiSortBy="high"><span>High</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="low"><span>Low</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="volume"><span>Volume</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"></th>
+                    <!--<th scope="col"></th>-->
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let aktien of aktiens ;trackBy: trackId">
-                    <td><a [routerLink]="['/aktien', aktien.id, 'view']">{{ aktien.id }}</a></td>
+                    <!--<td><a [routerLink]="['/aktien', aktien.id, 'view']">{{ aktien.id }}</a></td>-->
                     <td>{{ aktien.symbol }}</td>
-                    <td>{{ aktien.date | date:'medium' }}</td>
+                    <td>{{ aktien.date | date:'dd.MM.yyyy' }}</td>
                     <td>{{ aktien.open }}</td>
                     <td>{{ aktien.close }}</td>
                     <td>{{ aktien.high }}</td>
                     <td>{{ aktien.low }}</td>
                     <td>{{ aktien.volume }}</td>
-                    <td class="text-right">
+                    <!--<td class="text-right">
                         <div class="btn-group">
                             <button type="submit"
                                     [routerLink]="['/aktien', aktien.id, 'view']"
@@ -65,7 +83,7 @@
                                 <span class="d-none d-md-inline">Delete</span>
                             </button>
                         </div>
-                    </td>
+                    </td>-->
                 </tr>
             </tbody>
         </table>
