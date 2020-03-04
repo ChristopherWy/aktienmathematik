@@ -8,5 +8,6 @@ entity Aktien {
     volume Integer
 }
 
+filter Aktien
 paginate Aktien with pagination
 service all with serviceImpl except Aktien
