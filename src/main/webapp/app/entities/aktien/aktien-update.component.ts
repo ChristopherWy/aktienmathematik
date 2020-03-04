@@ -71,14 +71,14 @@ export class AktienUpdateComponent implements OnInit {
   private createFromForm(): IAktien {
     return {
       ...new Aktien(),
-      id: this.editForm.get(['id'])!.value,
-      symbol: this.editForm.get(['symbol'])!.value,
-      date: this.editForm.get(['date'])!.value ? moment(this.editForm.get(['date'])!.value, DATE_TIME_FORMAT) : undefined,
+      //id: this.editForm.get(['id'])!.value,
+      symbol: this.editForm.get(['symbol'])!.value //,
+      /*date: this.editForm.get(['date'])!.value ? moment(this.editForm.get(['date'])!.value, DATE_TIME_FORMAT) : undefined,
       open: this.editForm.get(['open'])!.value,
       close: this.editForm.get(['close'])!.value,
       high: this.editForm.get(['high'])!.value,
       low: this.editForm.get(['low'])!.value,
-      volume: this.editForm.get(['volume'])!.value
+      volume: this.editForm.get(['volume'])!.value*/
     };
   }
 
