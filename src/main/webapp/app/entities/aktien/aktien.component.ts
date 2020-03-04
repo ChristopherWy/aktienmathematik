@@ -10,8 +10,6 @@ import { IAktien } from 'app/shared/model/aktien.model';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { AktienService } from './aktien.service';
 import { AktienDeleteDialogComponent } from './aktien-delete-dialog.component';
-import { AktienUpdateComponent } from './aktien-update.component';
-import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'jhi-aktien',
@@ -26,18 +24,14 @@ export class AktienComponent implements OnInit, OnDestroy {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
-  update: AktienUpdateComponent;
 
   constructor(
     protected aktienService: AktienService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected eventManager: JhiEventManager,
-    protected modalService: NgbModal,
-    private fb: FormBuilder
-  ) {
-    this.update = new AktienUpdateComponent(aktienService, activatedRoute, fb);
-  }
+    protected modalService: NgbModal
+  ) {}
 
   loadPage(page?: number): void {
     const pageToLoad: number = page || this.page;
