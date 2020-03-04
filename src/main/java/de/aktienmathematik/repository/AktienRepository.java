@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface AktienRepository extends JpaRepository<Aktien, Long> {
+public interface AktienRepository extends JpaRepository<Aktien, Long>, JpaSpecificationExecutor<Aktien> {
 
 }
