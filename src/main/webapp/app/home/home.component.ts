@@ -5,8 +5,8 @@ import { LoginModalService } from 'app/core/login/login-modal.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 
-import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
-import { Label } from 'ng2-charts';
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import { Color, Label } from 'ng2-charts';
 
 @Component({
   selector: 'jhi-home',
@@ -17,26 +17,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   account: Account | null = null;
   authSubscription?: Subscription;
 
-  // scatter
-  public scatterChartOptions: ChartOptions = {
-    responsive: true
-  };
-  public scatterChartLabels: Label[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
+  public lineChartData: ChartDataSets[] = [{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' }];
+  public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-  public scatterChartData: ChartDataSets[] = [
+  public lineChartColors: Color[] = [
     {
-      data: [
-        { x: 1, y: 1 },
-        { x: 2, y: 3 },
-        { x: 3, y: -2 },
-        { x: 4, y: 4 },
-        { x: 5, y: -3 }
-      ],
-      label: 'Series A',
-      pointRadius: 10
+      borderColor: 'black',
+      backgroundColor: 'rgba(255,0,0,0.3)'
     }
   ];
-  public scatterChartType: ChartType = 'scatter';
+  public lineChartLegend = true;
+  public lineChartType = 'line';
+  public lineChartPlugins = [];
 
   constructor(private accountService: AccountService, private loginModalService: LoginModalService) {}
 
@@ -57,9 +49,4 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.authSubscription.unsubscribe();
     }
   }
-
-  // events
-  public chartClicked({ event, active }: { event: MouseEvent; active: {}[] }): void {}
-
-  public chartHovered({ event, active }: { event: MouseEvent; active: {}[] }): void {}
 }

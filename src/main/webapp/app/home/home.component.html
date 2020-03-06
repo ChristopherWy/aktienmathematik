@@ -11,17 +11,15 @@
 
         <p class="lead">Erstellen Sie eine Visualisierung.</p>
 
-        <div>
-            <div>
-                <div style="display: block">
-                    <canvas baseChart
-                            [datasets]="scatterChartData"
-                            [options]="scatterChartOptions"
-                            [labels]="scatterChartLabels"
-                            [chartType]="scatterChartType">
-                    </canvas>
-                </div>
-            </div>
+        <div style="display: block;">
+            <canvas baseChart width="250" height="250"
+                    [datasets]="lineChartData"
+                    [labels]="lineChartLabels"
+                    [colors]="lineChartColors"
+                    [legend]="lineChartLegend"
+                    [chartType]="lineChartType"
+                    [plugins]="lineChartPlugins">
+            </canvas>
         </div>
 
     </div>
