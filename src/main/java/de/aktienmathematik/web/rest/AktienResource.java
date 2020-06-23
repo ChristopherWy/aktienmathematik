@@ -2,6 +2,7 @@ package de.aktienmathematik.web.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.aktienmathematik.domain.Aktien;
+import de.aktienmathematik.domain.Symbol;
 import de.aktienmathematik.repository.AktienRepository;
 import de.aktienmathematik.web.rest.errors.BadRequestAlertException;
 
@@ -31,10 +32,7 @@ import java.net.URISyntaxException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * REST controller for managing {@link de.aktienmathematik.domain.Aktien}.
@@ -55,6 +53,42 @@ public class AktienResource {
 
     public AktienResource(AktienRepository aktienRepository) {
         this.aktienRepository = aktienRepository;
+    }
+
+    @GetMapping("symbols")
+    public ResponseEntity<List<Symbol>> getSymbols() throws URISyntaxException, IOException {
+        ArrayList<Symbol> symbolList = new ArrayList<Symbol>();
+        log.debug("REST request to get all Symbols");
+        String hostname = "10.241.50.94"; //""blntcpfsc02.qee.blntc";
+        int port = 8080;
+        Proxy proxy = new Proxy(Proxy.Type.HTTP,
+            new InetSocketAddress(hostname, port));
+
+        OkHttpClient client = new OkHttpClient.Builder()
+            .proxy(proxy)
+            .build();
+
+        Request request = new Request.Builder()
+            .url("https://sandbox.iexapis.com/beta/ref-data/symbols?token=Tpk_bfef6dd096704fc3a02137bc685b5058")
+            .get()
+            .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+            ObjectMapper mapper = new ObjectMapper();
+            LinkedList<HashMap<String,String>> symbols = mapper.readValue(response.body().string(), new LinkedList<HashMap<String,String>>().getClass());
+
+            for(HashMap<String,String> symbol : symbols) {
+                Symbol symbolDto = new Symbol();
+                symbolDto.setSymbol(symbol.get("symbol"));
+                symbolDto.setFullName(symbol.get("name"));
+                symbolList.add(symbolDto);
+            }
+        }
+        return ResponseEntity.created(new URI("/api/symbols/"))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, "symbols"))
+            .body(symbolList);
     }
 
     /**
@@ -79,7 +113,7 @@ public class AktienResource {
 
     private Aktien loadAktien() throws IOException {
         Aktien aktieDto = null;
-        String hostname = "blntcpfsc02.qee.blntc";
+        String hostname = "10.241.50.94"; //""blntcpfsc02.qee.blntc";
         int port = 8080;
         Proxy proxy = new Proxy(Proxy.Type.HTTP,
             new InetSocketAddress(hostname, port));
