@@ -29,6 +29,15 @@
         <span>Keine Daten zur gesuchten Aktie gefunden</span>
     </div>
 
+    <table>
+        <thead></thead>
+        <tbody>
+        <tr *ngFor="let symbol of symbols">
+            <td>{{symbol.name}}</td>
+        </tr>
+        </tbody>
+    </table>
+
     <div class="table-responsive" id="entities" *ngIf="aktiens?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>

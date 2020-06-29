@@ -12,6 +12,7 @@ import { AktienService } from './aktien.service';
 import { AktienDeleteDialogComponent } from './aktien-delete-dialog.component';
 import { AktienUpdateComponent } from './aktien-update.component';
 import { FormBuilder } from '@angular/forms';
+import {ISymbol} from "app/shared/model/symbol.model";
 
 @Component({
   selector: 'jhi-aktien',
@@ -19,6 +20,7 @@ import { FormBuilder } from '@angular/forms';
 })
 export class AktienComponent implements OnInit, OnDestroy {
   aktiens?: IAktien[];
+  symbols?: ISymbol[];
   eventSubscriber?: Subscription;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
@@ -37,6 +39,10 @@ export class AktienComponent implements OnInit, OnDestroy {
     private fb: FormBuilder
   ) {
     this.update = new AktienUpdateComponent(aktienService, activatedRoute, fb);
+
+    this.aktienService.querySymbols().subscribe(
+      (x: HttpResponse<ISymbol[]>) => this.setSymbols(x.body)
+    )
   }
 
   loadPage(page?: number): void {
@@ -91,6 +97,12 @@ export class AktienComponent implements OnInit, OnDestroy {
       result.push('id');
     }
     return result;
+  }
+
+  protected setSymbols(data: ISymbol[] | null): void {
+    this.symbols = data || [];
+    //console.log(data);
+    //this.aktiens = data || [];
   }
 
   protected onSuccess(data: IAktien[] | null, headers: HttpHeaders, page: number): void {

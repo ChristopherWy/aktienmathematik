@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IAktien } from 'app/shared/model/aktien.model';
+import { ISymbol } from 'app/shared/model/symbol.model';
 
 type EntityResponseType = HttpResponse<IAktien>;
 type EntityArrayResponseType = HttpResponse<IAktien[]>;
@@ -14,6 +15,8 @@ type EntityArrayResponseType = HttpResponse<IAktien[]>;
 @Injectable({ providedIn: 'root' })
 export class AktienService {
   public resourceUrl = SERVER_API_URL + 'api/aktiens';
+
+  public symbolsUrl = SERVER_API_URL + 'api/symbols';
 
   constructor(protected http: HttpClient) {}
 
@@ -35,6 +38,12 @@ export class AktienService {
     return this.http
       .get<IAktien>(`${this.resourceUrl}/${id}`, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  querySymbols(): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<ISymbol[]>(this.symbolsUrl, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
