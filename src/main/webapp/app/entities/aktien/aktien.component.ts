@@ -29,6 +29,7 @@ export class AktienComponent implements OnInit, OnDestroy {
   ascending!: boolean;
   ngbPaginationPage = 1;
   update: AktienUpdateComponent;
+  keyword = 'fullName';
 
   constructor(
     protected aktienService: AktienService,
@@ -41,8 +42,22 @@ export class AktienComponent implements OnInit, OnDestroy {
     this.update = new AktienUpdateComponent(aktienService, activatedRoute, fb);
 
     this.aktienService.querySymbols().subscribe(
-      (x: HttpResponse<ISymbol[]>) => this.setSymbols(x.body)
+      (x: HttpResponse<ISymbol[]>) => this.setSymbols(x.body),
+      () => this.onError()
     )
+  }
+
+  selectEvent(item: any): void {
+    // do something with selected item
+  }
+
+  onChangeSearch(search: string): void {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any): void {
+    // do something
   }
 
   loadPage(page?: number): void {
