@@ -33,7 +33,7 @@
     "tslib": "1.10.0",
     "zone.js": "0.10.2",
     "ng2-charts": "2.3.0",
-    "chart.js": "2.9.3"
+    "chart.js": "2.9.4"
   },
   "devDependencies": {
     "@angular/cli": "8.3.20",
